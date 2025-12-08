@@ -725,9 +725,8 @@ class Node:
             self.accounts.save_to_disk(self.node_id)
             self.running = False
             
-            # Properly stop the network and close the socket
             self.network.stop()
-            time.sleep(1)  # Give OS time to release the port
+            time.sleep(1)  
             
             print(f"Node P{self.node_id} failed")
             return True
@@ -740,11 +739,9 @@ class Node:
             self.blockchain.load_from_disk()
             self.accounts.load_from_disk(self.node_id)
             
-            # Ensure old network is fully stopped
             if hasattr(self, 'network') and self.network:
                 self.network.stop()
             
-            # Create new network and start server
             self.network = NetworkLayer(self.node_id)
             self.paxos.network = self.network
             
@@ -761,7 +758,6 @@ class Node:
             
             print(f"Node P{self.node_id} recovered")
             
-            # Request sync from other nodes
             sync_msg = {
                 'type': 'SYNC_REQUEST',
                 'my_depth': self.blockchain.get_depth()
