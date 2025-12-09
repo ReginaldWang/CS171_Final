@@ -144,12 +144,9 @@ class Blockchain:
 
     def print_chain(self):
         with self.lock:
-            print(f"\n{'='*80}")
-            print(f"BLOCKCHAIN - Node P{self.node_id} (Length: {len(self.chain)} blocks)")
-            print(f"{'='*80}")
+            print(f"\nBLOCKCHAIN - Node P{self.node_id} (Length: {len(self.chain)} blocks)")
             for block in self.chain:
                 print(block)
-            print(f"{'='*80}\n")
 
     def save_to_disk(self):
         with self.lock:
@@ -198,12 +195,9 @@ class BankAccounts:
     
     def print_balances(self):
         with self.lock:
-            print("\n" + "="*40)
-            print("ACCOUNT BALANCES")
-            print("="*40)
+            print("\nACCOUNT BALANCES")
             for node_id in sorted(self.accounts.keys()):
                 print(f"  P{node_id}: ${self.accounts[node_id]}")
-            print("="*40 + "\n")
     
     def save_to_disk(self, node_id):
         with self.lock:
